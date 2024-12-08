@@ -2,26 +2,58 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+/* globals.css */
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* Adjust hero text for responsiveness */
+@media (max-width: 1024px) {
+    .hero-text {
+      padding: 20px;
+      width: 80%;
+    }
+  
+    .hero-heading {
+      font-size: 2rem; /* Adjust font size for medium screens */
+    }
+  
+    .hero-paragraph {
+      font-size: 1rem; /* Adjust paragraph font size for medium screens */
+    }
+  
+    .hero-button {
+      padding: 12px 24px; /* Adjust button size for medium screens */
+    }
   }
-}
-
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
-}
-
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
+  
+  @media (max-width: 768px) {
+    .hero-text {
+      width: 90%;
+      padding: 15px;
+    }
+  
+    .hero-heading {
+      font-size: 1.5rem; /* Adjust font size for small screens */
+    }
+  
+    .hero-paragraph {
+      font-size: 1rem; /* Adjust paragraph font size for small screens */
+    }
+  
+    .hero-button {
+      padding: 10px 20px; /* Adjust button size for smaller screens */
+    }
   }
-}
+  
+  @media (max-width: 480px) {
+    .hero-heading {
+      font-size: 1.25rem; /* Adjust font size for very small screens */
+    }
+  
+    .hero-paragraph {
+      font-size: 0.875rem; /* Adjust paragraph font size for very small screens */
+    }
+  
+    .hero-button {
+      padding: 8px 16px; /* Adjust button size for very small screens */
+    }
+  }
+  
