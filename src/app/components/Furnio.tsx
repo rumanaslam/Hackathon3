@@ -13,7 +13,7 @@ export default function Furnio() {
       </div>
       <div className="flex justify-center items-center w-full mt-6">
         <Image
-          src="/images/setup-Images.png"
+          src="/indigo.png"
           width={2000}
           height={100}
           alt="setup images"

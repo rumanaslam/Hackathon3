@@ -35,7 +35,8 @@ const Header = () => {
         <span className='flex gap-6 items-center text-xl'>
           <MdOutlineManageAccounts />
           <CiSearch />
-          <IoIosHeartEmpty />
+          <Link href={"/asgard-sofa"}> <IoIosHeartEmpty /> </Link>
+          
           <IoCartOutline />
         </span>
       </div>

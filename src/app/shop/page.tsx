@@ -18,6 +18,14 @@ const ShopPage = () => {
         />
         {/* Overlay Text */}
         <div className="absolute inset-0 flex flex-col items-center justify-center text-[#000000] bg-opacity-40">
+          {/* Logo */}
+          <Image
+            src="/uio.png"
+            alt="Logo"
+            width={77}
+            height={77}
+            className="mb-2" // Adds spacing between logo and text
+          />
           <h1 className="text-5xl fontsemi-bold font-poppins">Shop</h1>
           <p className="text-sm mt-2">
             <span className="opacity-80 font-bold text-[#000000]">Home</span> &gt; <span>Shop</span>
