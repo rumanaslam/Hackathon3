@@ -3,7 +3,7 @@ import Image from 'next/image';
 
 const ContactPage = () => {
     return (
-        <>
+        <div className='min-h-screen bg-gray-50 pb-8'>
             {/* Banner Section with Logo and Text */}
             <div className="relative">
                 <Image
@@ -11,7 +11,7 @@ const ContactPage = () => {
                     alt="contact"
                     width={1440}
                     height={316}
-                    className="w-full h-auto"
+                    className="w-full h-[316px] object-cover"
                 />
                 <div className="absolute inset-0 flex flex-col items-center justify-center text-[#000000] bg-opacity-40">
                     {/* Logo */}
@@ -101,7 +101,7 @@ const ContactPage = () => {
                     </button>
                 </div>
             </div>
-        </>
+        </div>
     );
 };
 

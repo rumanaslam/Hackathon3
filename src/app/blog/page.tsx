@@ -29,7 +29,7 @@ const BlogPage: React.FC = () => {
   ];
 
   return (
-    <>
+    <div className='min-h-screen bg-gray-50 '>
       {/* Banner Section with Text and Logo */}
       <div className="relative">
         <Image
@@ -37,7 +37,7 @@ const BlogPage: React.FC = () => {
           alt="blog"
           width={1440}
           height={316}
-          className="w-full h-auto"
+          className="w-full h-[316px] object-cover"
         />
         {/* Overlay with logo and text */}
         <div className="absolute inset-0 flex flex-col items-center justify-center text-[#000000] bg-opacity-40">
@@ -57,7 +57,7 @@ const BlogPage: React.FC = () => {
       </div>
 
       {/* Main Content */}
-      <div className="flex flex-col lg:flex-row lg:justify-between items-start lg:h-[2210px] px-4 lg:px-0">
+      <div className="flex flex-col lg:flex-row lg:justify-between items-start lg:h-[2210px] px-4 lg:px-0 pb-10">
         {/* Left Section */}
         <div className="lg:w-1/2 lg:ml-12">
           {/* Blog Post 1 */}
@@ -179,7 +179,7 @@ const BlogPage: React.FC = () => {
           </div>
         ))}
       </div>
-    </>
+    </div>
   );
 };
 

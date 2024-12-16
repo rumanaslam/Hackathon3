@@ -4,18 +4,19 @@ export default function Hero() {
   return (
     <>
       {/* w90rem h 63 */}
-      <div className="flex relative">
+      <div className="flex relative w-full">
         <Image
           src={"/bg.png"}
           width={1440}
           height={100}
-          alt="Picture of the author"
+          alt="Picture"
         />
         <div
-          className="w-[643px] h-[443px] heroText absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-[#FFF3E3] p-5 ml-80"
+          className="absolute top-[20%] left-[20%] md:top-[20%] md:left-[45%] bg-[#FFF3E3] p-6 md:p-10 
+        w-[90%] max-w-[643px] rounded-lg shadow-lg"
         >
-          <div className="w-[561px] h-[344px]">
-            <h6 className="font-poppins text-600 text-16px leading-24px text-[#333333] font-bold ml-1">
+          <div className="w-[500px] h-[320px] ml-5">
+            <h6 className="font-poppins text-600 text-16px leading-24px text-[#333333] font-bold ml-1 mt-8">
               New Arrival
             </h6>
             <h1 className="font-poppins font-700 text-52px leading-[65px] text-[#B88E2F] font-bold text-6xl ml-780px">

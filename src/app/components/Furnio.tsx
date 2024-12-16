@@ -17,7 +17,7 @@ export default function Furnio() {
           width={2000}
           height={100}
           alt="setup images"
-          className="w-full max-w-[2000px] h-auto"
+          className="w-full max-w-[2000px] h-auto pl-10 pr-10"
         />
       </div>
     </div>
