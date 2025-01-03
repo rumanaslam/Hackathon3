@@ -2,10 +2,12 @@ import React from "react";
 import FilterBar from "../components/FilterBar";
 import ProductsGrid from "../components/ProductsGrid";
 import Image from "next/image";
+import Link from "next/link";
 
+import Services from "../components/Services";
 const ShopPage = () => {
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-[#FFFFFF]">
       {/* Banner Section */}
       <div className="relative">
         {/* Background Image */}
@@ -41,7 +43,24 @@ const ShopPage = () => {
         {/* Products Grid */}
         <ProductsGrid />
       </div>
+      <div className="flex-col items-center text-center mb-8 mt-10 font-semi-bold text-xl ">
+      <button className="rounded-[10px] h-[60px] w-[60px] mt-[30px] bg-[#B88E2F]"> 1</button>
+      <button className="rounded-[10px] h-[60px] w-[60px] mt-[30px] bg-[#F9F1E7] ml-[40px]">2</button>
+      <button className="rounded-[10px] h-[60px] w-[60px] mt-[30px] bg-[#F9F1E7] ml-[40px]">3</button>
+      <Link href="/asgard-sofa">
+      <button className="rounded-[10px] h-[60px] w-[98px] mt-[30px] bg-[#F9F1E7] ml-[40px]">
+        Next
+      </button>
+    </Link>
+
+
     </div>
+   <div>
+    <Services/>
+   </div>
+    </div>
+    
+    
   );
 };
 

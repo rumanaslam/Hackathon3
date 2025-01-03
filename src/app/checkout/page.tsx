@@ -1,18 +1,20 @@
 import React from 'react';
 import Image from 'next/image';
-
+import Services from "../components/Services";
 const BillingPage: React.FC = () => {
   return (
     <div className="min-h-screen bg-[#FFFFFF]">
       {/* Banner Section with Logo and Text */}
-      <div className="relative">
+     {/* Banner Section with Text and Logo */}
+     <div className="relative">
         <Image
-          src={"/Rectangle 1.png"}
-          alt="contact"
+          src="/Rectangle 1.png"
+          alt="checkout"
           width={1440}
           height={316}
-          className="w-full h-auto"
+          className="w-full h-[316px] object-cover"
         />
+        {/* Overlay with logo and text */}
         <div className="absolute inset-0 flex flex-col items-center justify-center text-[#000000] bg-opacity-40">
           {/* Logo */}
           <Image
@@ -20,7 +22,7 @@ const BillingPage: React.FC = () => {
             alt="Logo"
             width={77}
             height={77}
-            className="mb-2"
+            className="mb-2" // Adds spacing between logo and text
           />
           <h1 className="text-5xl font-semibold font-poppins">Checkout</h1>
           <p className="text-sm mt-2">
@@ -251,6 +253,7 @@ const BillingPage: React.FC = () => {
           </div>
         </div>
       </div>
+      <Services/>
     </div>
   );
 };

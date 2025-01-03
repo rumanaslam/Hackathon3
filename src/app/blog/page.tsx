@@ -1,5 +1,6 @@
 import React from 'react';
 import Image from 'next/image';
+import Services from "../components/Services";
 
 interface Category {
   name: string;
@@ -168,7 +169,7 @@ const BlogPage: React.FC = () => {
         </div>
       </div>
 
-      {/* Pagination */}
+      {/* 1,2,3 */}
       <div className="flex items-center justify-center gap-2 lg:gap-8 mt-10 lg:mt-14 ">
         {['1', '2', '3', 'Next'].map((item) => (
           <div
@@ -178,6 +179,9 @@ const BlogPage: React.FC = () => {
             {item}
           </div>
         ))}
+      </div>
+      <div className='mt-8 pb-6'>
+      <Services/>
       </div>
     </div>
   );

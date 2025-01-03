@@ -153,6 +153,12 @@ const Header = () => {
                 Checkout
               </button>
             </Link>
+
+            <Link href="/comparison">
+              <button className="w-full border rounded-full py-2 text-sm">
+                Comparison
+              </button>
+            </Link>
           </div>
 
           {/* Close Button */}

@@ -1,35 +1,38 @@
 // pages/cart.tsx
 import React from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
+import Services from "../components/Services";
 
 
 const CartPage: React.FC = () => {
   return (
     <div className="bg-gray-50 min-h-screen">
-      {/* Header Section */}
-      <div className="relative">
-                <Image
-                    src={"/Rectangle 1.png"}
-                    alt="contact"
-                    width={1440}
-                    height={316}
-                    className="w-full h-auto"
-                />
-                <div className="absolute inset-0 flex flex-col items-center justify-center text-[#000000] bg-opacity-40">
-                    {/* Logo */}
-                    <Image
-                        src="/uio.png"
-                        alt="Logo"
-                        width={77}
-                        height={77}
-                        className="mb-2"
-                    />
-                    <h1 className="text-5xl font-semibold font-poppins">Cart</h1>
-                    <p className="text-sm mt-2">
-                        <span className="opacity-80 font-bold text-[#000000]">Cart</span> &gt; <span>Cart</span>
-                    </p>
-                </div>
-            </div>
+     {/* Banner Section with Text and Logo */}
+           <div className="relative">
+             <Image
+               src="/Rectangle 1.png"
+               alt="blog"
+               width={1440}
+               height={316}
+               className="w-full h-[316px] object-cover"
+             />
+             {/* Overlay with logo and text */}
+             <div className="absolute inset-0 flex flex-col items-center justify-center text-[#000000] bg-opacity-40">
+               {/* Logo */}
+               <Image
+                 src="/uio.png"
+                 alt="Logo"
+                 width={77}
+                 height={77}
+                 className="mb-2" // Adds spacing between logo and text
+               />
+               <h1 className="text-5xl font-semibold font-poppins">Cart</h1>
+               <p className="text-sm mt-2">
+                 <span className="opacity-80 font-bold text-[#000000]">Home</span> &gt; <span>Cart</span>
+               </p>
+             </div>
+           </div>
      
 
       {/* Main Content */}
@@ -40,7 +43,7 @@ const CartPage: React.FC = () => {
             <table className="w-full text-left border-collapse">
               <thead>
                 <tr className="bg-[#F9F1E7]">
-                  <th className="p-4 font-medium">Product</th>
+                  <th className="p-4 font-medium pl-40 ">Product</th>
                   <th className="p-4 font-medium">Price</th>
                   <th className="p-4 font-medium">Quantity</th>
                   <th className="p-4 font-medium">Subtotal</th>
@@ -49,7 +52,7 @@ const CartPage: React.FC = () => {
               <tbody>
                 <tr className="border-t">
                   <td className="p-4 flex items-center space-x-4">
-                    <Image src="/Asgaard sofa 5.png" alt="Asgaard sofa" className="w-16 h-16 rounded" />
+                    <Image src="/Asgaard sofa 5.png" alt="Asgaard sofa" width={111} height={90} />
                     <span className="font-medium">Asgaard sofa</span>
                   </td>
                   <td className="p-4">Rs. 250,000.00</td>
@@ -78,12 +81,16 @@ const CartPage: React.FC = () => {
               <span>Total</span>
               <span className='text-[#B88E25]'>Rs. 250,000.00</span>
             </div>
-            <button className="w-full border-r-4 outline text-[#000000] font-medium py-3 mt-6 rounded">Check Out</button>
+            <Link href="/checkout">
+      <button className="w-full border-r-4 outline text-[#000000] font-medium py-3 mt-6 rounded">
+        Check Out
+      </button>
+    </Link>
+
           </div>
         </div>
-
-        
       </main>
+      <Services/>
     </div>
   );
 };
