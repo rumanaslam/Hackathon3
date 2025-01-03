@@ -42,7 +42,7 @@ const ProductComparison: React.FC = () => {
         </div>
         {/* Product 2 */}
         <div className="p-4 bg-[#f9f4ee] rounded-md shadow-md">
-        import Image from 'next/image';
+        
 
 <Image
   src="/sofa2.jpg"
