@@ -1,6 +1,6 @@
 import React from "react";
-import FilterBar from "../components/FilterBar";
-import ProductsGrid from "../components/ProductsGrid";
+import FilterBar from "./FilterBar";
+import ProductsGrid from "./ProductsGrid";
 import Image from "next/image";
 import Link from "next/link";
 

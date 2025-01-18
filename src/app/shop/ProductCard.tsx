@@ -1,15 +1,16 @@
-import React from "react";
-import Image from "next/image";
+import React from 'react';
+import Image from 'next/image';
+import Link from 'next/link';
 
 interface Product {
-  id: number;
+  _id: string;
   name: string;
   description: string;
   price: string;
+  imageUrl: string;
   discountPrice?: string;
   discount?: string;
   isNew?: boolean;
-  image: string;
 }
 
 interface ProductCardProps {
@@ -22,10 +23,10 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
       {/* Fixed Size Image Container */}
       <div className="w-full h-[180px] relative">
         <Image
-          src={product.image}
+          src={product.imageUrl}
           alt={product.name}
           fill
-          className="object-cover object-center" // Ensures the image is centered
+          className="object-cover object-center"
         />
         {/* Discount Badge */}
         {product.discount && (
@@ -43,11 +44,9 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
 
       {/* Product Details */}
       <div className="p-4 flex flex-col justify-between flex-grow">
-        {/* Title and Description */}
         <h3 className="text-lg font-bold truncate">{product.name}</h3>
         <p className="text-sm text-gray-500 truncate">{product.description}</p>
 
-        {/* Price Section */}
         <div className="flex items-center space-x-2 mt-2">
           <span className="text-lg font-semibold">{product.price}</span>
           {product.discountPrice && (
@@ -56,6 +55,11 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
             </span>
           )}
         </div>
+
+        {/* Link to Product Details Page */}
+        <Link href={`/products/${product._id}`} className="text-blue-500 hover:text-blue-700 mt-2">
+          View Details
+        </Link>
       </div>
     </div>
   );
