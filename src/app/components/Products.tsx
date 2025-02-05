@@ -1,147 +1,146 @@
-import Image from 'next/image'
-import React from 'react'
-import Link from 'next/link'
+"use client";
+import React, { useEffect, useState } from "react";
+import Image from "next/image";
+import Link from "next/link";
+import client from "@/sanity/lib/client";
+import { GoArrowSwitch } from "react-icons/go";
+import { IoShareSocialSharp } from "react-icons/io5";
+import AddToCart from "./addtocart2";
 
-interface Product {
-  id: number
-  name: string
-  description: string
-  price: string
-  discountPrice?: string
-  discount?: string
-  image: string
-  isNew?: boolean
+interface ProductType {
+  _id: string;
+  title: string;
+  productImage: string;
+  price: number;
+  tags?: string[];
+  discountPercentage?: number;
+  isNew?: boolean;
 }
 
-const products: Product[] = [
-  {
-    id: 1,
-    name: "Syltherine",
-    description: "Stylish cafe chair",
-    price: "Rp 2.500.000",
-    discountPrice: "Rp 3.600.000",
-    discount: "30%",
-    image: '/image 1.png',
-  },
-  {
-    id: 2,
-    name: "Leviosa",
-    description: "Luxury big sofa",
-    price: "Rp 2.500.000",
-    image: '/k.png',
-  },
-  {
-    id: 3,
-    name: "Lolito",
-    description: "Outdoor bar table and stool",
-    price: "Rp 700.000",
-    discount: "50%",
-    discountPrice: "Rp 14.000.000",
-    image: '/image 3.png',
-  },
-  {
-    id: 4,
-    name: "Respira",
-    description: "Outdoor bar table and stool",
-    price: "Rp 500.000",
-    isNew: true,
-    image: '/i.png',
-  },
-  {
-    id: 5,
-    name: 'Grifo',
-    description: 'Night Lamp',
-    price: 'Rs. 150,000',
-    image: '/t.png',
-  },
-  {
-    id: 6,
-    name: 'Mugo',
-    description: 'Small Mug',
-    price: 'Rs. 150,000',
-    isNew: true,
-    image: '/iy.png',
-  },
-  {
-    id: 7,
-    name: 'Pingky',
-    description: 'Cute bed set',
-    price: 'Rs. 70,000',
-    discount: "50%",
-    discountPrice: "Rp 14.000.000",
-    image: '/87.png',
-  },
-  {
-    id: 8,
-    name: 'Potty',
-    description: 'Minimalist flower pot',
-    price: 'Rs. 50,000',
-    isNew: true,
-    image: '/image 8.png',
-  },
-]
+const formatPrice = (price: number) => {
+  const priceStr = price.toString();
+  return priceStr.replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1.");
+};
 
-const Products = () => {
+export default function Product() {
+  const [products, setProducts] = useState<ProductType[]>([]);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const query = `*[_type == "product"] {
+          _id,
+          title,
+          "productImage": productImage.asset->url,
+          price,
+          tags,
+          discountPercentage,
+          isNew
+        }`;
+        const fetchedProducts: ProductType[] = await client.fetch(query);
+        setProducts(fetchedProducts);
+      } catch (err) {
+        console.error("Error fetching products:", err);
+        setError("Failed to fetch products. Please try again later.");
+      }
+    };
+    fetchProducts();
+  }, []);
+
+  if (error) {
+    return <div>{error}</div>;
+  }
+
+  const topro = products.slice(0, 8);
+
   return (
     <div>
-      <div className="w-full px-[1px] flex flex-col items-center justify-center">
-        <div className="subText text-center">
-          <h1 className="font-bold text-3xl text-[#333333] font-poppins">Our Products</h1>
-        </div>
+      <div className="min-h-screen">
+        <h1 className="text-3xl font-bold text-center mb-8">Our Products</h1>
 
-        {/* Products Grid */}
-        <div className="imgArea grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 pt-2">
-          {products.map((product) => (
-            <Link href="/shop" key={product.id}>
-              <div className="imgItem relative flex flex-col cursor-pointer border border-gray-200 p-4 rounded-md shadow-sm hover:shadow-md">
-                {/* Discount Badge */}
-                {product.discount && (
-                  <span className="absolute top-2 left-2 bg-red-500 text-white text-xs font-bold py-1 px-2 rounded">
-                    {product.discount}
-                  </span>
-                )}
-                
-                {/* New Badge */}
-                {product.isNew && (
-                  <span className="absolute top-2 right-2 bg-green-500 text-white text-xs font-bold py-1 px-2 rounded">
-                    New
-                  </span>
+        {/* Product Grid */}
+        <div className="px-6 sm:px-12 mt-8 lg:px-24 justify-center items-center grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {topro.length > 0 ? (
+            topro.map((product) => (
+              <div
+                key={product._id}
+                className="relative bg-white border p-4 group hover:bg-gray-300 transition-colors mx-auto w-full max-w-[270px] h-auto overflow-hidden"
+              >
+                {/* Discount or New Tag */}
+                {(product.discountPercentage || product.isNew) && (
+                  <div
+                    className={`absolute top-2 right-2 px-2 py-1 text-white text-sm font-bold rounded-full ${
+                      product.discountPercentage ? "bg-red-500" : "bg-green-500"
+                    }`}
+                  >
+                    {product.discountPercentage ? `${product.discountPercentage}% Off` : "NEW"}
+                  </div>
                 )}
 
                 {/* Product Image */}
                 <Image
-                  src={product.image}
-                  width={200}
-                  height={200}
-                  alt={product.name}
-                  className="object-cover rounded-md"
+                  src={product.productImage || "/placeholder-image.jpg"}
+                  alt={product.title}
+                  width={350}
+                  height={350}
+                  className="w-full h-[301px] object-cover mb-4"
                 />
-                
-                {/* Product Details */}
-                <h6 className="pt-4 text-center font-semibold">{product.name}</h6>
-                <p className="text-center text-gray-500 text-sm">{product.description}</p>
-                <div className="text-center mt-2 flex justify-center items-center space-x-2">
-                  <span className="font-bold">{product.price}</span>
-                  {product.discountPrice && (
-                    <span className="text-sm text-gray-400 line-through">{product.discountPrice}</span>
-                  )}
+
+                {/* Product Info */}
+                <h2 className="text-xl text-[#3A3A3A] font-semibold mb-2">
+                  {product.title}
+                </h2>
+                <p className="text-gray-700 text-sm line-clamp-1 mb-2">
+                  {product.tags?.join(", ")}
+                </p>
+                <div className="text-sm font-medium mb-4">
+                  <span className="text-[#3A3A3A] font-semibold">
+                    Rs. {formatPrice(product.price)}
+                  </span>
                 </div>
+
+                {/* Hover Options */}
+                <Link href={`/shop/${product._id}`}>
+                  <div className="absolute inset-0 flex flex-col justify-center items-center opacity-0 group-hover:opacity-100 transition-transform duration-200 ease-in-out">
+                    <AddToCart
+                      product={{
+                        id: product._id,
+                        title: product.title,
+                        price: product.price,
+                        image: product.productImage,
+                      }}
+                    />
+                    <div className="flex justify-center space-x-2 text-white text-sm mt-2">
+                      <button className="hover:text-black flex items-center">
+                        <IoShareSocialSharp /> Share
+                      </button>
+                      <Link href={"/product-comparision"}>
+                        <button className="hover:text-black flex items-center">
+                          <GoArrowSwitch /> Compare
+                        </button>
+                      </Link>
+                    </div>
+                  </div>
+                </Link>
               </div>
-            </Link>
-          ))}
+            ))
+          ) : (
+            <h1 className="text-center text-red-600 items-center text-xl">
+              Products not found
+            </h1>
+          )}
         </div>
 
-          {/* Show More Button */}
-          <div className="flex justify-center mt-8">
-  <button
-    className="w-[245px] h-[48px] bg-[#FFFFFF]  text-[#B88E2F] font-semibold text-lg rounded-md "
-  >
-    Show More
-  </button>
-</div>
+        {/* Button to show more Products */}
+        <Link href={"/shop"}>
+          <div className="text-center mt-6">
+            <button className="bg-white text-[#B88E2F] border hover:border-x-[3px] hover:border-y-[3px] border-[#B88E2F] font-bold py-3 px-16 transition-colors">
+              Show More
+            </button>
+          </div>
+        </Link>
       </div>
     </div>
-  )
+  );
 }
-
-export default Products
