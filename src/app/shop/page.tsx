@@ -2,21 +2,23 @@
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import FilterBar from "./FilterBar";
 import client from "@/sanity/lib/client";
 import { GoArrowSwitch } from "react-icons/go";
 import { IoShareSocialSharp } from "react-icons/io5";
-
 import FeaturesSection from "../components/Services";
-import FilterBar from "./FilterBar";
-import AddToList from "../components/Addtowishlist";
+import { LocalProduct } from "@/types"; // Ensure this is the correct path
 
+// Price formatting function
 const formatPrice = (price: number) => {
-  return price.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1.");
+  const priceStr = price.toString();
+  const formatted = priceStr.replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1.");
+  return formatted;
 };
 
 const Shop = () => {
-  const [products, setProducts] = useState<any[]>([]);
-  const [filteredProducts, setFilteredProducts] = useState<any[]>([]);
+  const [products, setProducts] = useState<LocalProduct[]>([]); // Use LocalProduct here
+  const [filteredProducts, setFilteredProducts] = useState<LocalProduct[]>([]); // Use LocalProduct here
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 8;
 
@@ -32,9 +34,9 @@ const Shop = () => {
           discountPercentage,
           isNew
         }`;
-        const data = await client.fetch(query);
+        const data: LocalProduct[] = await client.fetch(query); // Ensure data type matches LocalProduct
         setProducts(data);
-        setFilteredProducts(data); // Initialize filtered products with all products
+        setFilteredProducts(data);
       } catch (error) {
         console.error("Error fetching products:", error);
       }
@@ -101,9 +103,7 @@ const Shop = () => {
 
               {/* Product Info */}
               <h2 className="text-xl text-[#3A3A3A] font-semibold mb-2">{product.title}</h2>
-              <p className="text-gray-700 text-sm line-clamp-1 mb-2">
-                {product.tags?.join(", ")}
-              </p>
+              <p className="text-gray-700 text-sm line-clamp-1 mb-2">{product.tags?.join(", ")}</p>
               <div className="text-sm font-medium mb-4">
                 <span className="text-[#3A3A3A] font-semibold">
                   Rs. {formatPrice(product.price)}
@@ -111,44 +111,32 @@ const Shop = () => {
               </div>
 
               {/* Hover Options */}
-                
               <div className="absolute inset-0 flex flex-col justify-center items-center opacity-0 group-hover:opacity-100 transition-transform duration-200 ease-in-out">
-                   <Link href={`/shop/${product._id}`}>
-                    <h1
-                      
-                      className="bg-white text-yellow-600 font-bold py-2 px-4 rounded shadow mb-2 hover:shadow-lg hover:bg-graay transition-shadow"
-                    >
-                      View Detail
-                    </h1>
-                    </Link>
-                    <div className="flex justify-center space-x-2 text-white text-sm mt-2">
-                      <button className="hover:text-black flex items-center">
-                        <IoShareSocialSharp /> Share
-                      </button>
-                      <Link href={"/product-comparision"}>
-                        <button className="hover:text-black flex items-center">
-                          <GoArrowSwitch /> Compare
-                        </button>
-                      </Link>
-                      <AddToList
-                        product={{
-                          id: product._id,
-                          title: product.title,
-                          price: product.price,
-                          image: product.productImage,
-                        }}
-                      />
-                    </div>
-                  </div>
-                
+                <Link href={`/shop/${product._id}`}>
+                  <h1 className="bg-white text-yellow-600 font-bold py-2 px-4 rounded shadow mb-2 hover:shadow-lg hover:bg-gray-200 transition-shadow">
+                    View Detail
+                  </h1>
+                </Link>
+                <div className="flex justify-center space-x-2 text-white text-sm mt-2">
+                  <button className="hover:text-black flex items-center">
+                    <IoShareSocialSharp /> Share
+                  </button>
+                  <Link href={"/product-comparision"}>
+                    <button className="hover:text-black flex items-center">
+                      <GoArrowSwitch /> Compare
+                    </button>
+                  </Link>
+                  
+                </div>
               </div>
-            ))
-          ) : (
-            <h1 className="text-center text-red-600 items-center text-xl">
-              Products not found
-            </h1>
-          )}
-        </div>
+            </div>
+          ))
+        ) : (
+          <h1 className="text-center text-red-600 items-center text-xl">
+            Products not found
+          </h1>
+        )}
+      </div>
 
       {/* Pagination Buttons */}
       <div className="flex justify-center space-x-4 mt-10 p-10">
@@ -162,14 +150,18 @@ const Shop = () => {
         {[...Array(totalPages)].map((_, index) => (
           <button
             key={index}
-            className={`px-4 py-2 rounded-md ${currentPage === index + 1 ? "bg-[#B88E2F] text-white" : "bg-[#F9F1E7] hover:bg-[#B88E2F]"}`}
+            className={`px-4 py-2 rounded-md ${
+              currentPage === index + 1
+                ? "bg-[#B88E2F] text-white"
+                : "bg-[#F9F1E7] hover:bg-[#B88E2F]"
+            }`}
             onClick={() => setCurrentPage(index + 1)}
           >
             {index + 1}
           </button>
         ))}
         <button
-          className="px-6 py-3 bg-[#F9F1E7] rounded-md hover:bg-[#B88E2F] "
+          className="px-6 py-3 bg-[#F9F1E7] rounded-md hover:bg-[#B88E2F]"
           disabled={currentPage === totalPages}
           onClick={() => setCurrentPage(currentPage + 1)}
         >

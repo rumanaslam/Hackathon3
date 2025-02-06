@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 
+
+
 interface Product {
   _id: string;
   title: string;
@@ -11,7 +13,7 @@ interface Product {
 
 interface FilterBarProps {
   products: Product[];
-  setFilteredProducts: (products: Product[]) => void;
+  setFilteredProducts: React.Dispatch<React.SetStateAction<Product[]>>; // Correct setter type
 }
 
 const FilterBar: React.FC<FilterBarProps> = ({ products, setFilteredProducts }) => {
